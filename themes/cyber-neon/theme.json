@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 2,
+  "id": "cyber-neon",
+  "name": "赛博霓虹",
+  "version": "1.0.2",
+  "author": "AI ThemeStore Community",
+  "description": "午夜蓝、电子青与克制紫光构成的沉浸式工作台。",
+  "brandSubtitle": "COMMUNITY NIGHT LAB",
+  "tagline": "进入专注、清晰、安静的深夜工作流。",
+  "projectPrefix": "载入项目 · ",
+  "projectLabel": "⌁  选择霓虹节点",
+  "statusText": "NEON GRID STABLE",
+  "quote": "SYNC WITH THE NEON GRID",
+  "assets": {
+    "hero": "hero.png",
+    "taskBackground": "hero.png"
+  },
+  "appearance": {
+    "preferredMode": "dark",
+    "colors": {
+      "background": "#040915",
+      "panel": "#081329",
+      "panelAlt": "#101B3B",
+      "accent": "#25D9FF",
+      "accentAlt": "#73F2FF",
+      "secondary": "#8A6CFF",
+      "highlight": "#C044FF",
+      "text": "#EDF8FF",
+      "muted": "#9AAFD0",
+      "line": "rgba(37, 217, 255, .30)"
+    }
+  },
+  "layout": {
+    "backgroundMode": "full",
+    "heroHeight": 272,
+    "heroPosition": "72% center",
+    "taskPosition": "76% center",
+    "contentMaxWidth": 980
+  },
+  "effects": {
+    "blur": 14,
+    "panelOpacity": 0.72,
+    "homeSurfaceOpacity": 0.5,
+    "controlSurfaceOpacity": 0.54,
+    "controlSurfaceBlur": 18,
+    "sidebarOpacity": 0.5,
+    "sidebarBlur": 0,
+    "shellRadius": 17,
+    "heroRadius": 22,
+    "cardRadius": 18,
+    "composerRadius": 21,
+    "motion": "full"
+  },
+  "decorations": {
+    "brand": true,
+    "status": true,
+    "quote": true,
+    "particles": "sparkles",
+    "orbit": true,
+    "composerMark": "spark",
+    "composerIcon": "circuit-core",
+    "composerMarkStyle": "anchor"
+  }
+}

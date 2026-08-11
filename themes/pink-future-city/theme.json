@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 2,
+  "id": "pink-future-city",
+  "name": "粉色未来城市",
+  "version": "1.0.2",
+  "author": "AI ThemeStore Community",
+  "description": "柔和玫瑰晨光、未来城市与轻盈玻璃面板。",
+  "brandSubtitle": "COMMUNITY ORIGINAL",
+  "tagline": "在柔和晨光里开始新的创造。",
+  "projectPrefix": "进入项目 · ",
+  "projectLabel": "♡  选择未来街区",
+  "statusText": "ROSE CITY ONLINE",
+  "quote": "SOFT LIGHT, BOLD FUTURES",
+  "assets": {
+    "hero": "hero.png",
+    "taskBackground": "hero.png"
+  },
+  "appearance": {
+    "preferredMode": "light",
+    "colors": {
+      "background": "#F8F1F4",
+      "panel": "#FFFFFF",
+      "panelAlt": "#FFF7FA",
+      "accent": "#E95374",
+      "accentAlt": "#FF8FA8",
+      "secondary": "#F5B4C2",
+      "highlight": "#8C5AC8",
+      "text": "#2A2025",
+      "muted": "#806D76",
+      "line": "rgba(233, 83, 116, .24)"
+    }
+  },
+  "layout": {
+    "backgroundMode": "full",
+    "heroHeight": 272,
+    "heroPosition": "68% center",
+    "taskPosition": "72% center",
+    "contentMaxWidth": 980
+  },
+  "effects": {
+    "blur": 14,
+    "panelOpacity": 0.72,
+    "homeSurfaceOpacity": 0.5,
+    "controlSurfaceOpacity": 0.54,
+    "controlSurfaceBlur": 18,
+    "sidebarOpacity": 0.5,
+    "sidebarBlur": 0,
+    "shellRadius": 17,
+    "heroRadius": 22,
+    "cardRadius": 18,
+    "composerRadius": 21,
+    "motion": "full"
+  },
+  "decorations": {
+    "brand": true,
+    "status": true,
+    "quote": true,
+    "particles": "sparkles",
+    "orbit": true,
+    "composerMark": "spark",
+    "composerIcon": "skyline",
+    "composerMarkStyle": "anchor"
+  }
+}

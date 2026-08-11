@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 2,
+  "id": "minimal-glass",
+  "name": "极简玻璃",
+  "version": "1.0.2",
+  "author": "AI ThemeStore Community",
+  "description": "象牙白、薄雾青与低干扰玻璃建筑组成的安静主题。",
+  "brandSubtitle": "COMMUNITY QUIET SERIES",
+  "tagline": "留出空间，让重要的事情自然浮现。",
+  "projectPrefix": "打开 · ",
+  "projectLabel": "▱  选择纯净画布",
+  "statusText": "QUIET MODE",
+  "quote": "CLARITY IS THE FEATURE",
+  "assets": {
+    "hero": "hero.png",
+    "taskBackground": "hero.png"
+  },
+  "appearance": {
+    "preferredMode": "light",
+    "colors": {
+      "background": "#F5F2EC",
+      "panel": "#FFFFFF",
+      "panelAlt": "#F6FAF9",
+      "accent": "#5B9998",
+      "accentAlt": "#8FC8C2",
+      "secondary": "#E7AA87",
+      "highlight": "#70868D",
+      "text": "#293234",
+      "muted": "#738083",
+      "line": "rgba(91, 153, 152, .20)"
+    }
+  },
+  "layout": {
+    "backgroundMode": "full",
+    "heroHeight": 272,
+    "heroPosition": "70% center",
+    "taskPosition": "74% center",
+    "contentMaxWidth": 980
+  },
+  "effects": {
+    "blur": 14,
+    "panelOpacity": 0.72,
+    "homeSurfaceOpacity": 0.5,
+    "controlSurfaceOpacity": 0.54,
+    "controlSurfaceBlur": 18,
+    "sidebarOpacity": 0.5,
+    "sidebarBlur": 0,
+    "shellRadius": 17,
+    "heroRadius": 22,
+    "cardRadius": 18,
+    "composerRadius": 21,
+    "motion": "none"
+  },
+  "decorations": {
+    "brand": true,
+    "status": false,
+    "quote": true,
+    "particles": "none",
+    "orbit": false,
+    "composerMark": "portal",
+    "composerIcon": "prism",
+    "composerMarkStyle": "anchor"
+  }
+}

@@ -1,0 +1,107 @@
+export function probeCodexShellDocument(documentRef, locationRef) {
+  const canonicalShell = documentRef.title === "Codex" &&
+    locationRef.protocol === "app:" &&
+    locationRef.host === "-" &&
+    locationRef.pathname === "/index.html";
+  const markers = {
+    shell: Boolean(documentRef.querySelector("main")),
+    sidebar: Boolean(documentRef.querySelector("aside.app-shell-left-panel")),
+    composer: Boolean(documentRef.querySelector(
+      ".composer-surface-chrome, [data-codex-composer-root] [data-codex-composer=\"true\"]",
+    )),
+    main: Boolean(documentRef.querySelector('[role="main"]')),
+  };
+  const modernShell = markers.shell && markers.composer;
+  const legacyShell = markers.shell && markers.sidebar && markers.main;
+  return {
+    title: documentRef.title,
+    href: locationRef.href,
+    markers,
+    codex: canonicalShell && (modernShell || legacyShell),
+  };
+}
+
+export const CODEX_SHELL_PROBE_EXPRESSION =
+  `(${probeCodexShellDocument.toString()})(document, location)`;
+
+export function resolveShellMainDocument(documentRef) {
+  const appShellMain = documentRef.querySelector('main[data-app-shell-main-surface]');
+  if (appShellMain) return appShellMain;
+  const nativeShellMain = documentRef.querySelector(
+    "main.main-surface:not(.ai-themestore-main-compat)",
+  );
+  if (nativeShellMain) return nativeShellMain;
+  return [...documentRef.querySelectorAll("main")].find((candidate) =>
+    !candidate.closest?.('[aria-hidden="true"], [inert], .invisible')) ?? null;
+}
+
+export const SHELL_MAIN_RESOLVER_EXPRESSION =
+  `(${resolveShellMainDocument.toString()})(document)`;
+
+export function resolveToolPaneDocument(documentRef) {
+  return documentRef.querySelector(
+    'aside[data-app-shell-focus-area="right-panel"]',
+  );
+}
+
+export const TOOL_PANE_RESOLVER_EXPRESSION =
+  `(${resolveToolPaneDocument.toString()})(document)`;
+
+export function resolveComposerSurfaceDocument(documentRef, scopeRef = documentRef) {
+  const legacy = scopeRef.querySelector(".composer-surface-chrome");
+  if (legacy) return legacy;
+  const editor = scopeRef.querySelector('[data-codex-composer="true"]');
+  const root = editor?.closest?.("[data-codex-composer-root]") ?? null;
+  if (!root || !scopeRef.contains(root)) return null;
+  const surface = editor.closest?.(
+    '[data-composer-surface-variant][data-composer-radius-variant]',
+  ) ?? null;
+  return surface && root.contains(surface) ? surface : null;
+}
+
+export const COMPOSER_SURFACE_RESOLVER_EXPRESSION =
+  `(${resolveComposerSurfaceDocument.toString()})(document)`;
+
+export function resolveChatPaneDocument(documentRef) {
+  const marked = documentRef.querySelector("aside.ai-themestore-chat-pane");
+  if (marked) return marked;
+  return [...documentRef.querySelectorAll("aside")].find((candidate) =>
+    !candidate.matches("aside.app-shell-left-panel") &&
+    Boolean(candidate.querySelector(".thread-scroll-container")) &&
+    Boolean(candidate.querySelector(
+      ".composer-surface-chrome, [data-codex-composer-root] [data-codex-composer=\"true\"]",
+    ))) ?? null;
+}
+
+export const CHAT_PANE_RESOLVER_EXPRESSION =
+  `(${resolveChatPaneDocument.toString()})(document)`;
+
+export function optionalSidebarVisibilityPass(sidebarPresent, sidebarVisible) {
+  return !sidebarPresent || Boolean(sidebarVisible);
+}
+
+export function chatPaneDividerParityPass({
+  chatPanePresent,
+  sidebarPresent,
+  paneLeftWidth,
+  paneLeftStyle,
+  paneLeftColor,
+  sidebarRightWidth,
+  sidebarRightStyle,
+  sidebarRightColor,
+  nativeDividerLeftWidth,
+}) {
+  if (!chatPanePresent) return true;
+  const designedDividerPass = paneLeftWidth === "1px" &&
+    paneLeftStyle === "solid" && nativeDividerLeftWidth === "0px";
+  if (!sidebarPresent) return designedDividerPass;
+  return designedDividerPass &&
+    paneLeftWidth === sidebarRightWidth &&
+    paneLeftStyle === sidebarRightStyle &&
+    paneLeftColor === sidebarRightColor;
+}
+
+export const OPTIONAL_SIDEBAR_VISIBILITY_EXPRESSION =
+  `(${optionalSidebarVisibilityPass.toString()})`;
+export const CHAT_PANE_DIVIDER_PARITY_EXPRESSION =
+  `(${chatPaneDividerParityPass.toString()})`;
