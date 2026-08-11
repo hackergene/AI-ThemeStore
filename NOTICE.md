@@ -12,5 +12,13 @@ The starter themes were generated for this project as original abstract
 worlds. They intentionally contain no third-party characters, logos, product
 UI, text, or watermarks.
 
+Screenshots under `docs/images/` are sanitized, high-fidelity previews rendered
+with project-owned themes. Some showcase themes come from the wider ThemeStore
+catalog and are not bundled with this Community app. The previews contain a
+simulated Codex interface for demonstration only and no real account, project,
+or conversation data. No third-party character fan artwork is included. OpenAI
+and Codex names and interface elements remain the property of their respective
+owners and are not covered by the MIT License.
+
 This project does not redistribute Node.js. At runtime it validates and uses
 the signed Node.js executable bundled with the user's official Codex app.
