@@ -17,22 +17,20 @@ making every change reversible.
 
 ## Codex, themed
 
-The screenshots below are sanitized, high-fidelity Codex UI previews rendered
-with **Cyber Neon**, one of the original themes included in this repository.
-They contain no real account, project, or conversation data.
+This sanitized, high-fidelity showcase brings together three visual worlds from
+the wider ThemeStore catalog: **Golden Buddha**, **Ember Ninja Legacy**, and
+**Silver Nocturne Rose**. It demonstrates both New Chat and active task surfaces
+without using real account, project, or conversation data.
 
-### New Chat
+![Golden Buddha, Ember Ninja Legacy, and Silver Nocturne Rose themes for Codex](./docs/images/codex-theme-showcase.png)
 
-![Codex New Chat with the Cyber Neon theme](./docs/images/codex-new-chat-cyber-neon.png)
-
-### Active task
-
-![An active Codex task with the Cyber Neon theme](./docs/images/codex-active-task-cyber-neon.png)
+The ninja panel uses the original, non-franchise `Ember Ninja Legacy` artwork.
+No third-party character fan art is included in this repository.
 
 ## What this project provides
 
 - A native SwiftUI app for browsing, applying, verifying, and restoring themes
-- Three redistributable original themes: Minimal Glass, Cyber Neon, and Pink Future City
+- Three bundled redistributable themes: Minimal Glass, Cyber Neon, and Pink Future City
 - An open, local `theme.json` format for creating your own Codex themes
 - A loopback-only theme runtime with transactional switching and rollback
 - Signature checks for the official Codex app and its bundled Node.js runtime

@@ -13,8 +13,10 @@ worlds. They intentionally contain no third-party characters, logos, product
 UI, text, or watermarks.
 
 Screenshots under `docs/images/` are sanitized, high-fidelity previews rendered
-with the original bundled themes. They contain a simulated Codex interface for
-demonstration only and no real account, project, or conversation data. OpenAI
+with project-owned themes. Some showcase themes come from the wider ThemeStore
+catalog and are not bundled with this Community app. The previews contain a
+simulated Codex interface for demonstration only and no real account, project,
+or conversation data. No third-party character fan artwork is included. OpenAI
 and Codex names and interface elements remain the property of their respective
 owners and are not covered by the MIT License.
 

@@ -15,21 +15,19 @@
 
 ## Codex 主题效果
 
-以下图片是使用仓库内原创主题 **Cyber Neon** 渲染的、经过信息清理的高保真
-Codex 界面预览，不包含任何真实账号、项目或对话数据。
+这张经过信息清理的高保真组合图展示了完整主题库中的三种视觉世界：
+**佛陀 · 万山朝光**、**Ember Ninja Legacy** 与 **银夜蔷薇**，同时覆盖 New Chat
+和运行中任务，不包含任何真实账号、项目或对话数据。
 
-### New Chat
+![Codex 的佛陀、Ember Ninja Legacy 与银夜蔷薇主题组合效果](./docs/images/codex-theme-showcase.png)
 
-![应用 Cyber Neon 主题后的 Codex New Chat](./docs/images/codex-new-chat-cyber-neon.png)
-
-### 运行中的任务
-
-![应用 Cyber Neon 主题后的 Codex 运行中任务](./docs/images/codex-active-task-cyber-neon.png)
+忍者画面使用原创、无第三方角色的 `Ember Ninja Legacy` 素材。本仓库未包含任何
+第三方角色同人图片。
 
 ## 项目包含什么
 
 - 原生 SwiftUI App，用于浏览、应用、验证和恢复主题
-- 三套可再分发的原创主题：极简玻璃、赛博霓虹、粉色未来城市
+- 三套内置可再分发主题：极简玻璃、赛博霓虹、粉色未来城市
 - 开放的本地 `theme.json` 格式，可制作自己的 Codex 主题
 - 仅绑定回环地址的主题运行时，支持事务式切换和失败回滚
 - 校验官方 Codex App 及其内置 Node.js 运行时的签名
