@@ -5,6 +5,7 @@ previews. The README showcase uses these project-owned source themes from the
 wider ThemeStore catalog:
 
 - `golden-buddha-dawn/hero.png` — original Buddha and Zen collection
+- `azure-lotus-dharma/hero.png` — original blue Buddha and Zen collection
 - `ember-ninja-legacy/hero.png` — original, non-franchise ninja world
 - `silver-nocturne-rose/hero.png` — ThemeStore Community theme
 

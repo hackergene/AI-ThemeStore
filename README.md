@@ -17,12 +17,13 @@ making every change reversible.
 
 ## Codex, themed
 
-This sanitized, high-fidelity showcase brings together three visual worlds from
-the wider ThemeStore catalog: **Golden Buddha**, **Ember Ninja Legacy**, and
-**Silver Nocturne Rose**. It demonstrates both New Chat and active task surfaces
-without using real account, project, or conversation data.
+This sanitized, high-fidelity showcase brings together four visual worlds from
+the wider ThemeStore catalog: **Golden Buddha Dawn**, **Azure Lotus Dharma**,
+**Ember Ninja Legacy**, and **Silver Nocturne Rose**. It demonstrates both New
+Chat and active task surfaces without using real account, project, or
+conversation data.
 
-![Golden Buddha, Ember Ninja Legacy, and Silver Nocturne Rose themes for Codex](./docs/images/codex-theme-showcase.png)
+![Golden Buddha Dawn, Azure Lotus Dharma, Ember Ninja Legacy, and Silver Nocturne Rose themes for Codex](./docs/images/codex-theme-showcase.png)
 
 The ninja panel uses the original, non-franchise `Ember Ninja Legacy` artwork.
 No third-party character fan art is included in this repository.
