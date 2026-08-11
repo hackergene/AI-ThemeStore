@@ -1,10 +1,10 @@
 # README image provenance
 
 The PNG files in this directory are sanitized, high-fidelity Codex interface
-previews. The README showcase uses these project-owned source themes from the
-wider ThemeStore catalog:
+previews and project social artwork. The README showcase uses these
+project-owned source themes from the wider ThemeStore catalog:
 
-- `golden-buddha-dawn/hero.png` — original Buddha and Zen collection
+- `fortune-code-workshop/hero.png` — original Chinese fortune-workbench collection
 - `azure-lotus-dharma/hero.png` — original blue Buddha and Zen collection
 - `ember-ninja-legacy/hero.png` — original, non-franchise ninja world
 - `silver-nocturne-rose/hero.png` — ThemeStore Community theme
@@ -13,6 +13,9 @@ The original ninja asset is used deliberately instead of the personal-use
 `hero-ip.png` fan asset. No third-party character fan artwork is included.
 The showcase themes are examples of the engine's range and are not part of the
 three starter theme packages bundled with this repository.
+
+`x-launch-fortune-code-workshop.png` is a deterministic campaign composition
+built from the sanitized Fortune Code Workshop preview.
 
 The images contain no real account, project, file path, server, or conversation
 data.

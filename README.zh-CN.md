@@ -16,10 +16,10 @@
 ## Codex 主题效果
 
 这张经过信息清理的高保真组合图展示了完整主题库中的四种视觉世界：
-**佛陀 · 万山朝光**、**佛陀 · 青莲法界**、**Ember Ninja Legacy** 与
+**财神 · 稳稳开工**、**佛陀 · 青莲法界**、**Ember Ninja Legacy** 与
 **银夜蔷薇**，同时覆盖 New Chat 和运行中任务，不包含任何真实账号、项目或对话数据。
 
-![Codex 的金色佛陀、蓝色佛陀、Ember Ninja Legacy 与银夜蔷薇主题组合效果](./docs/images/codex-theme-showcase.png)
+![Codex 的财神、蓝色佛陀、Ember Ninja Legacy 与银夜蔷薇主题组合效果](./docs/images/codex-theme-showcase.png)
 
 忍者画面使用原创、无第三方角色的 `Ember Ninja Legacy` 素材。本仓库未包含任何
 第三方角色同人图片。
