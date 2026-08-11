@@ -2,7 +2,7 @@
 
 ## Scope
 
-This repository contains the offline macOS Community App, its loopback-only
+This repository contains the offline macOS App, its loopback-only
 theme engine, three original starter themes, and tests. Do not add production
 backend, deployment, Firebase, analytics, remote-device, account, or update
 infrastructure.

@@ -13,7 +13,7 @@ struct ThemeMetadata: Decodable, Sendable {
   let assets: Assets
 }
 
-struct CommunityTheme: Identifiable, Sendable {
+struct ThemeModel: Identifiable, Sendable {
   let id: String
   let metadata: ThemeMetadata
   let directoryURL: URL
@@ -39,7 +39,7 @@ struct RuntimeStatus: Decodable, Sendable {
   )
 }
 
-enum CommunityError: LocalizedError {
+enum ThemeStoreError: LocalizedError {
   case invalidTheme(String)
   case bridgeUnavailable
   case bridgeFailed(String)

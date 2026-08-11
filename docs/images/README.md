@@ -7,7 +7,7 @@ project-owned source themes from the wider ThemeStore catalog:
 - `fortune-code-workshop/hero.png` — original Chinese fortune-workbench collection
 - `azure-lotus-dharma/hero.png` — original blue Buddha and Zen collection
 - `ember-ninja-legacy/hero.png` — original, non-franchise ninja world
-- `silver-nocturne-rose/hero.png` — ThemeStore Community theme
+- `silver-nocturne-rose/hero.png` — original AI ThemeStore theme
 
 The original ninja asset is used deliberately instead of the personal-use
 `hero-ip.png` fan asset. No third-party character fan artwork is included.

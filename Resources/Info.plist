@@ -5,17 +5,17 @@
   <key>CFBundleDevelopmentRegion</key>
   <string>zh_CN</string>
   <key>CFBundleDisplayName</key>
-  <string>AI ThemeStore Community</string>
+  <string>AI ThemeStore</string>
   <key>CFBundleExecutable</key>
-  <string>ai-themestore-community</string>
+  <string>ai-themestore</string>
   <key>CFBundleIconFile</key>
   <string>AppIcon</string>
   <key>CFBundleIdentifier</key>
-  <string>ai.themestore.community</string>
+  <string>ai.themestore.opensource</string>
   <key>CFBundleInfoDictionaryVersion</key>
   <string>6.0</string>
   <key>CFBundleName</key>
-  <string>AI ThemeStore Community</string>
+  <string>AI ThemeStore</string>
   <key>CFBundlePackageType</key>
   <string>APPL</string>
   <key>CFBundleShortVersionString</key>

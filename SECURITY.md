@@ -2,11 +2,11 @@
 
 ## Supported version
 
-Security fixes are provided for the latest Community release.
+Security fixes are provided for the latest release.
 
 ## Runtime boundary
 
-AI ThemeStore Community does not modify the official Codex application. It
+AI ThemeStore does not modify the official Codex application. It
 launches Codex with a Chromium DevTools endpoint bound to `127.0.0.1`, validates
 the official app and bundled Node.js signatures, and injects only into verified
 Codex renderer targets.

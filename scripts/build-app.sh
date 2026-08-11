@@ -4,7 +4,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 ROOT="$(cd "$SCRIPT_DIR/.." && pwd -P)"
-OUTPUT="${1:-$ROOT/dist/AI ThemeStore Community.app}"
+OUTPUT="${1:-$ROOT/dist/AI ThemeStore.app}"
 
 case "$OUTPUT" in
   *.app) ;;
@@ -18,21 +18,21 @@ esac
 
 /usr/bin/swift build --package-path "$ROOT" --configuration release
 BIN_DIR="$(/usr/bin/swift build --package-path "$ROOT" --configuration release --show-bin-path)"
-TEMP="$(/usr/bin/mktemp -d /tmp/ai-themestore-community.XXXXXX)"
+TEMP="$(/usr/bin/mktemp -d /tmp/ai-themestore.XXXXXX)"
 trap '/bin/rm -rf "$TEMP"' EXIT
 
-APP="$TEMP/AI ThemeStore Community.app"
+APP="$TEMP/AI ThemeStore.app"
 /bin/mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 /bin/cp "$ROOT/Resources/Info.plist" "$APP/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $(/bin/date -u +%Y%m%d%H%M%S)" "$APP/Contents/Info.plist"
-/bin/cp "$BIN_DIR/ai-themestore-community" "$APP/Contents/MacOS/ai-themestore-community"
+/bin/cp "$BIN_DIR/ai-themestore" "$APP/Contents/MacOS/ai-themestore"
 /bin/cp "$ROOT/Resources/Brand/AppIcon.icns" "$APP/Contents/Resources/AppIcon.icns"
 /bin/cp "$ROOT/Resources/Brand/AppIcon.png" "$APP/Contents/Resources/AppIcon.png"
 /usr/bin/ditto "$ROOT/engine" "$APP/Contents/Resources/engine"
 /usr/bin/ditto "$ROOT/themes" "$APP/Contents/Resources/themes"
 /bin/cp "$ROOT/VERSION" "$APP/Contents/Resources/engine/VERSION"
-/bin/chmod 755 "$APP/Contents/MacOS/ai-themestore-community" "$APP/Contents/Resources/engine/scripts/"*.sh
+/bin/chmod 755 "$APP/Contents/MacOS/ai-themestore" "$APP/Contents/Resources/engine/scripts/"*.sh
 /usr/bin/codesign --force --deep --options runtime --sign - "$APP"
 /usr/bin/codesign --verify --deep --strict "$APP"
 
@@ -44,4 +44,4 @@ if [ -e "$OUTPUT" ]; then
   esac
 fi
 /usr/bin/ditto "$APP" "$OUTPUT"
-printf 'Built AI ThemeStore Community %s: %s\n' "$VERSION" "$OUTPUT"
+printf 'Built AI ThemeStore %s: %s\n' "$VERSION" "$OUTPUT"

@@ -21,7 +21,7 @@ enum ThemeLibrary {
   static func installBundledThemes() throws {
     let manager = FileManager.default
     guard let resourceRoot = Bundle.main.resourceURL else {
-      throw CommunityError.invalidTheme("App 资源目录不可用。")
+      throw ThemeStoreError.invalidTheme("App 资源目录不可用。")
     }
     let bundledRoot = resourceRoot.appendingPathComponent("themes", isDirectory: true)
     let destinationRoot = try themesRoot()
@@ -40,7 +40,7 @@ enum ThemeLibrary {
     }
   }
 
-  static func scan() throws -> [CommunityTheme] {
+  static func scan() throws -> [ThemeModel] {
     let manager = FileManager.default
     let root = try themesRoot()
     let directories = try manager.contentsOfDirectory(
@@ -52,10 +52,10 @@ enum ThemeLibrary {
       .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
   }
 
-  static func readTheme(at directory: URL) throws -> CommunityTheme {
+  static func readTheme(at directory: URL) throws -> ThemeModel {
     let values = try directory.resourceValues(forKeys: [.isDirectoryKey, .isSymbolicLinkKey])
     guard values.isDirectory == true, values.isSymbolicLink != true else {
-      throw CommunityError.invalidTheme("主题目录必须是本地普通目录。")
+      throw ThemeStoreError.invalidTheme("主题目录必须是本地普通目录。")
     }
 
     let metadataURL = directory.appendingPathComponent("theme.json", isDirectory: false)
@@ -67,27 +67,27 @@ enum ThemeLibrary {
           let size = metadataValues.fileSize,
           size > 0,
           size <= 64 * 1024 else {
-      throw CommunityError.invalidTheme("theme.json 缺失或大小不安全。")
+      throw ThemeStoreError.invalidTheme("theme.json 缺失或大小不安全。")
     }
 
     let metadata = try JSONDecoder().decode(ThemeMetadata.self, from: Data(contentsOf: metadataURL))
     guard isSafeThemeID(metadata.id), metadata.id == directory.lastPathComponent else {
-      throw CommunityError.invalidTheme("主题 ID 与目录名不一致。")
+      throw ThemeStoreError.invalidTheme("主题 ID 与目录名不一致。")
     }
     guard metadata.name.count <= 80, metadata.version.count <= 32 else {
-      throw CommunityError.invalidTheme("主题名称或版本号过长。")
+      throw ThemeStoreError.invalidTheme("主题名称或版本号过长。")
     }
     guard metadata.assets.hero == URL(fileURLWithPath: metadata.assets.hero).lastPathComponent,
           !metadata.assets.hero.contains("/") else {
-      throw CommunityError.invalidTheme("主题背景必须位于主题目录内。")
+      throw ThemeStoreError.invalidTheme("主题背景必须位于主题目录内。")
     }
 
     let previewURL = directory.appendingPathComponent(metadata.assets.hero, isDirectory: false)
     let previewValues = try previewURL.resourceValues(forKeys: [.isRegularFileKey, .isSymbolicLinkKey])
     guard previewValues.isRegularFile == true, previewValues.isSymbolicLink != true else {
-      throw CommunityError.invalidTheme("主题背景不存在或不是普通文件。")
+      throw ThemeStoreError.invalidTheme("主题背景不存在或不是普通文件。")
     }
-    return CommunityTheme(
+    return ThemeModel(
       id: metadata.id,
       metadata: metadata,
       directoryURL: directory,
