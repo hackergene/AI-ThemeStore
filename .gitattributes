@@ -1,0 +1,5 @@
+# Keep GitHub's primary language focused on the native SwiftUI application.
+# The engine and its checks are bundled implementation resources.
+engine/** linguist-vendored
+tests/** linguist-vendored
+scripts/** linguist-vendored
