@@ -8,6 +8,8 @@
 工作区加入完整的视觉主题，同时保持官方 App 完整，所有改动均可恢复。
 
 [![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?logo=apple)](https://github.com/hackergene/AI-ThemeStore-Community/releases/latest)
+[![SwiftUI App](https://img.shields.io/badge/app-SwiftUI-F05138?logo=swift&logoColor=white)](#技术栈)
+[![JavaScript Engine](https://img.shields.io/badge/engine-JavaScript-F7DF1E?logo=javascript&logoColor=111827)](#技术栈)
 [![MIT License](https://img.shields.io/badge/license-MIT-25D9FF.svg)](./LICENSE)
 [![Offline](https://img.shields.io/badge/runtime-offline-8A6CFF.svg)](#隐私与安全)
 
@@ -32,6 +34,22 @@
 - 仅绑定回环地址的主题运行时，支持事务式切换和失败回滚
 - 校验官方 Codex App 及其内置 Node.js 运行时的签名
 - 不包含账号、遥测、云端 Registry、远程设备或自动更新
+
+## 技术栈
+
+AI ThemeStore Community 是一套混合架构的原生 macOS App：**Swift 与
+SwiftUI** 提供应用界面，本地 **JavaScript 与 CSS 主题引擎**负责 Codex
+主题应用、验证和恢复。
+
+| 层级 | 技术 | 职责 |
+| --- | --- | --- |
+| 原生 App | Swift、SwiftUI | 主题库、控制界面、状态展示和用户侧恢复 |
+| 主题引擎 | JavaScript（ESM）、CSS | 应用主题并验证 New Chat 与运行中任务界面 |
+| 生命周期工具 | POSIX shell | 启动、暂停、恢复、诊断和构建 App |
+| 构建系统 | Swift Package Manager | 编译和打包原生 macOS 应用 |
+
+GitHub 的语言标签依据源码字节数计算，因此即使用户看到的是原生 SwiftUI App，
+仓库仍可能显示 JavaScript。
 
 ## 适配 Codex 的实践经验
 

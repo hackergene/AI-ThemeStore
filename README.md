@@ -9,6 +9,8 @@ Codex workspace a visual identity while keeping the official app intact and
 making every change reversible.
 
 [![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?logo=apple)](https://github.com/hackergene/AI-ThemeStore-Community/releases/latest)
+[![SwiftUI App](https://img.shields.io/badge/app-SwiftUI-F05138?logo=swift&logoColor=white)](#technology-stack)
+[![JavaScript Engine](https://img.shields.io/badge/engine-JavaScript-F7DF1E?logo=javascript&logoColor=111827)](#technology-stack)
 [![MIT License](https://img.shields.io/badge/license-MIT-25D9FF.svg)](./LICENSE)
 [![Offline](https://img.shields.io/badge/runtime-offline-8A6CFF.svg)](#privacy-and-safety)
 
@@ -36,6 +38,22 @@ No third-party character fan art is included in this repository.
 - A loopback-only theme runtime with transactional switching and rollback
 - Signature checks for the official Codex app and its bundled Node.js runtime
 - No accounts, analytics, cloud registry, remote devices, or automatic updates
+
+## Technology stack
+
+AI ThemeStore Community is a hybrid native macOS app: **Swift and SwiftUI**
+provide the application interface, while a local **JavaScript and CSS theme
+engine** handles Codex theming, verification, and recovery.
+
+| Layer | Technology | Responsibility |
+| --- | --- | --- |
+| Native app | Swift, SwiftUI | Theme library, controls, status, and user-facing recovery |
+| Theme engine | JavaScript (ESM), CSS | Apply themes and verify New Chat and active task surfaces |
+| Lifecycle tools | POSIX shell | Start, pause, restore, diagnose, and build the app |
+| Build system | Swift Package Manager | Compile and package the native macOS application |
+
+GitHub's language label is based on source-code byte count, so it may show
+JavaScript even though the user-facing application is native SwiftUI.
 
 ## What we learned from theming Codex
 
