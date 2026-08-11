@@ -46,10 +46,21 @@ done
 if /usr/bin/grep -R -E -n \
   '(Firebase|GoogleService-Info|fast-ai|/home/hackergene|/api/device/|device-identity-v1|production\.env|staging\.env)' \
   "$ROOT/Sources" "$ROOT/engine" "$ROOT/scripts" "$ROOT/themes"; then
-  printf 'Production-only marker found in Community source.\n' >&2
+  printf 'Production-only marker found in open-source project.\n' >&2
+  exit 1
+fi
+
+if /usr/bin/grep -R -i -n \
+  --exclude='*.png' --exclude='*.avif' --exclude='*.icns' \
+  'comm''unity' \
+  "$ROOT/AGENTS.md" "$ROOT/CHANGELOG.md" "$ROOT/CONTRIBUTING.md" \
+  "$ROOT/NOTICE.md" "$ROOT/README.md" "$ROOT/README.zh-CN.md" \
+  "$ROOT/Resources" "$ROOT/SECURITY.md" "$ROOT/Sources" "$ROOT/docs" \
+  "$ROOT/scripts" "$ROOT/themes"; then
+  printf 'Legacy edition branding found in AI ThemeStore.\n' >&2
   exit 1
 fi
 
 "$ROOT/scripts/build-app.sh"
-/usr/bin/codesign --verify --deep --strict "$ROOT/dist/AI ThemeStore Community.app"
-printf 'AI ThemeStore Community tests passed.\n'
+/usr/bin/codesign --verify --deep --strict "$ROOT/dist/AI ThemeStore.app"
+printf 'AI ThemeStore tests passed.\n'

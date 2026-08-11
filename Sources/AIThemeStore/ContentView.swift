@@ -32,7 +32,7 @@ struct ContentView: View {
     .frame(minWidth: 940, minHeight: 680)
     .task { await model.bootstrap() }
     .alert(
-      "AI ThemeStore Community",
+      "AI ThemeStore",
       isPresented: Binding(
         get: { !model.alertMessage.isEmpty },
         set: { if !$0 { model.alertMessage = "" } }
@@ -49,7 +49,7 @@ struct ContentView: View {
       VStack(alignment: .leading, spacing: 8) {
         Text("AI ThemeStore")
           .font(.system(size: 34, weight: .bold, design: .rounded))
-        Text("COMMUNITY · OFFLINE MAC APP")
+        Text("OPEN SOURCE · OFFLINE MAC APP")
           .font(.system(size: 12, weight: .semibold, design: .monospaced))
           .foregroundStyle(.secondary)
         Text("选择一套本地主题，为 Codex 换一张会呼吸的脸。")
@@ -134,7 +134,7 @@ struct ContentView: View {
 }
 
 private struct ThemeCard: View {
-  let theme: CommunityTheme
+  let theme: ThemeModel
   let active: Bool
   let disabled: Bool
   let apply: () -> Void

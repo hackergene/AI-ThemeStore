@@ -7,7 +7,7 @@ struct BridgeClient: Sendable {
 
   func apply(themeID: String) async throws -> RuntimeStatus {
     guard ThemeLibrary.isSafeThemeID(themeID) else {
-      throw CommunityError.invalidTheme("主题 ID 不安全。")
+      throw ThemeStoreError.invalidTheme("主题 ID 不安全。")
     }
     return try await run(action: "apply", themeID: themeID)
   }
@@ -30,7 +30,7 @@ struct BridgeClient: Sendable {
         return bundled
       }
     }
-    if let root = ProcessInfo.processInfo.environment["THEMESTORE_COMMUNITY_ROOT"] {
+    if let root = ProcessInfo.processInfo.environment["THEMESTORE_PROJECT_ROOT"] {
       let development = URL(fileURLWithPath: root, isDirectory: true)
         .appendingPathComponent("engine/scripts/app-bridge-macos.sh", isDirectory: false)
       if FileManager.default.isExecutableFile(atPath: development.path) {
@@ -41,7 +41,7 @@ struct BridgeClient: Sendable {
   }
 
   private func run(action: String, themeID: String? = nil) async throws -> RuntimeStatus {
-    guard let executable = executableURL() else { throw CommunityError.bridgeUnavailable }
+    guard let executable = executableURL() else { throw ThemeStoreError.bridgeUnavailable }
     let arguments = [action, themeID ?? "", "codex"]
     let home = FileManager.default.homeDirectoryForCurrentUser.path
 
@@ -66,12 +66,12 @@ struct BridgeClient: Sendable {
       guard process.terminationStatus == 0 else {
         let message = String(data: errorData, encoding: .utf8)?
           .trimmingCharacters(in: .whitespacesAndNewlines)
-        throw CommunityError.bridgeFailed(
+        throw ThemeStoreError.bridgeFailed(
           message?.isEmpty == false ? message! : "本地主题操作失败。"
         )
       }
       guard let status = try? JSONDecoder().decode(RuntimeStatus.self, from: outputData) else {
-        throw CommunityError.invalidBridgeResponse
+        throw ThemeStoreError.invalidBridgeResponse
       }
       return status
     }.value

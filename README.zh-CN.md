@@ -2,18 +2,18 @@
   <a href="./README.md">English</a> · <strong>简体中文</strong>
 </p>
 
-# AI ThemeStore Community
+# AI ThemeStore
 
 一套面向 **macOS Codex Desktop** 的开源离线主题 App。它可以为 Codex
 工作区加入完整的视觉主题，同时保持官方 App 完整，所有改动均可恢复。
 
-[![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?logo=apple)](https://github.com/hackergene/AI-ThemeStore-Community/releases/latest)
+[![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?logo=apple)](https://github.com/hackergene/AI-ThemeStore/releases/latest)
 [![SwiftUI App](https://img.shields.io/badge/app-SwiftUI-F05138?logo=swift&logoColor=white)](#技术栈)
 [![JavaScript Engine](https://img.shields.io/badge/engine-JavaScript-F7DF1E?logo=javascript&logoColor=111827)](#技术栈)
 [![MIT License](https://img.shields.io/badge/license-MIT-25D9FF.svg)](./LICENSE)
 [![Offline](https://img.shields.io/badge/runtime-offline-8A6CFF.svg)](#隐私与安全)
 
-> AI ThemeStore Community 是独立的非官方项目，与 OpenAI 无隶属、背书或赞助关系。
+> AI ThemeStore 是独立的非官方项目，与 OpenAI 无隶属、背书或赞助关系。
 
 ## Codex 主题效果
 
@@ -37,7 +37,7 @@
 
 ## 技术栈
 
-AI ThemeStore Community 是一套混合架构的原生 macOS App：**Swift 与
+AI ThemeStore 是一套混合架构的原生 macOS App：**Swift 与
 SwiftUI** 提供应用界面，本地 **JavaScript 与 CSS 主题引擎**负责 Codex
 主题应用、验证和恢复。
 
@@ -54,7 +54,7 @@ GitHub 的语言标签依据源码字节数计算，因此即使用户看到的�
 ## 适配 Codex 的实践经验
 
 Codex 是持续演进的产品，因此稳定主题不能只是一张壁纸，也不能依赖一组脆弱的
-选择器。Community 引擎基于以下实践构建：
+选择器。主题引擎基于以下实践构建：
 
 1. **覆盖完整工作流。** New Chat 与运行中任务应使用统一视觉语言，包括任务卡、
    输入区、侧边栏和分层面板。
@@ -74,7 +74,7 @@ Codex 是持续演进的产品，因此稳定主题不能只是一张壁纸，�
 
 ### 下载
 
-从 [GitHub Releases](https://github.com/hackergene/AI-ThemeStore-Community/releases/latest)
+从 [GitHub Releases](https://github.com/hackergene/AI-ThemeStore/releases/latest)
 下载最新版本。
 
 ### 从源码构建
@@ -82,17 +82,17 @@ Codex 是持续演进的产品，因此稳定主题不能只是一张壁纸，�
 需要 macOS 13 或更高版本、官方 Codex Desktop App，以及 Xcode Command Line Tools。
 
 ```bash
-git clone https://github.com/hackergene/AI-ThemeStore-Community.git
-cd AI-ThemeStore-Community
+git clone https://github.com/hackergene/AI-ThemeStore.git
+cd AI-ThemeStore
 ./scripts/build-app.sh
-open "dist/AI ThemeStore Community.app"
+open "dist/AI ThemeStore.app"
 ```
 
-构建脚本只生成本地 Community App，不会修改或重新签名官方 Codex App。
+构建脚本只生成本地 App，不会修改或重新签名官方 Codex App。
 
 ### 使用 App
 
-1. 打开 AI ThemeStore Community。
+1. 打开 AI ThemeStore。
 2. 选择本地主题并点击“应用主题”。
 3. App 会重启 Codex，并验证 New Chat 与任务页的主题状态。
 4. 随时点击“恢复 Codex 外观”即可回到原生界面。
@@ -114,11 +114,11 @@ open "dist/AI ThemeStore Community.app"
 
 ## 隐私与安全
 
-Community 版离线运行，不包含遥测或账号代码。调试连接仅绑定 `127.0.0.1`。
+AI ThemeStore 离线运行，不包含遥测或账号代码。调试连接仅绑定 `127.0.0.1`。
 主题启用期间，本地调试端口属于敏感能力，请勿同时运行不可信的本机软件。完整边界
 见 [SECURITY.md](./SECURITY.md)。
 
-## Community 与完整版
+## 项目边界
 
 本仓库有意保持为一套小型、可审计、离线的 Codex 主题体验。更多主题及在线浏览
 体验请访问 [themestore.ai](https://themestore.ai)。

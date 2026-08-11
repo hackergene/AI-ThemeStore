@@ -3,7 +3,7 @@ import Foundation
 
 @MainActor
 final class AppModel: ObservableObject {
-  @Published private(set) var themes: [CommunityTheme] = []
+  @Published private(set) var themes: [ThemeModel] = []
   @Published private(set) var runtime = RuntimeStatus.unavailable
   @Published private(set) var busy = false
   @Published private(set) var activity = "正在读取本地主题…"
@@ -54,7 +54,7 @@ final class AppModel: ObservableObject {
     }
   }
 
-  func apply(_ theme: CommunityTheme) async {
+  func apply(_ theme: ThemeModel) async {
     guard !busy else { return }
     busy = true
     activity = "正在应用 \(theme.name)…"

@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct AIThemeStoreCommunityApp: App {
+struct AIThemeStoreApp: App {
   @StateObject private var model = AppModel()
 
   var body: some Scene {

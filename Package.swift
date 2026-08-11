@@ -3,18 +3,18 @@
 import PackageDescription
 
 let package = Package(
-  name: "AIThemeStoreCommunity",
+  name: "AIThemeStore",
   platforms: [.macOS(.v13)],
   products: [
     .executable(
-      name: "ai-themestore-community",
-      targets: ["AIThemeStoreCommunity"]
+      name: "ai-themestore",
+      targets: ["AIThemeStore"]
     ),
   ],
   targets: [
     .executableTarget(
-      name: "AIThemeStoreCommunity",
-      path: "Sources/AIThemeStoreCommunity"
+      name: "AIThemeStore",
+      path: "Sources/AIThemeStore"
     ),
   ]
 )

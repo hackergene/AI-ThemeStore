@@ -2,19 +2,19 @@
   <strong>English</strong> · <a href="./README.zh-CN.md">简体中文</a>
 </p>
 
-# AI ThemeStore Community
+# AI ThemeStore
 
 An open-source, offline theme app for **Codex Desktop on macOS**. It gives the
 Codex workspace a visual identity while keeping the official app intact and
 making every change reversible.
 
-[![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?logo=apple)](https://github.com/hackergene/AI-ThemeStore-Community/releases/latest)
+[![macOS 13+](https://img.shields.io/badge/macOS-13%2B-111827?logo=apple)](https://github.com/hackergene/AI-ThemeStore/releases/latest)
 [![SwiftUI App](https://img.shields.io/badge/app-SwiftUI-F05138?logo=swift&logoColor=white)](#technology-stack)
 [![JavaScript Engine](https://img.shields.io/badge/engine-JavaScript-F7DF1E?logo=javascript&logoColor=111827)](#technology-stack)
 [![MIT License](https://img.shields.io/badge/license-MIT-25D9FF.svg)](./LICENSE)
 [![Offline](https://img.shields.io/badge/runtime-offline-8A6CFF.svg)](#privacy-and-safety)
 
-> AI ThemeStore Community is an independent, unofficial project. It is not
+> AI ThemeStore is an independent, unofficial project. It is not
 > affiliated with, endorsed by, or sponsored by OpenAI.
 
 ## Codex, themed
@@ -41,7 +41,7 @@ No third-party character fan art is included in this repository.
 
 ## Technology stack
 
-AI ThemeStore Community is a hybrid native macOS app: **Swift and SwiftUI**
+AI ThemeStore is a hybrid native macOS app: **Swift and SwiftUI**
 provide the application interface, while a local **JavaScript and CSS theme
 engine** handles Codex theming, verification, and recovery.
 
@@ -58,7 +58,7 @@ JavaScript even though the user-facing application is native SwiftUI.
 ## What we learned from theming Codex
 
 Codex is a living product, so a durable theme cannot be just a wallpaper or a
-collection of fragile selectors. The Community engine is built around a few
+collection of fragile selectors. The theme engine is built around a few
 practical lessons:
 
 1. **Theme the complete workflow.** New Chat and active tasks must share the
@@ -80,7 +80,7 @@ customization boundary understandable and recoverable.
 
 ### Download
 
-Download the latest build from [GitHub Releases](https://github.com/hackergene/AI-ThemeStore-Community/releases/latest).
+Download the latest build from [GitHub Releases](https://github.com/hackergene/AI-ThemeStore/releases/latest).
 
 ### Build from source
 
@@ -88,18 +88,18 @@ Requirements: macOS 13 or newer, the official Codex Desktop app, and Xcode
 Command Line Tools.
 
 ```bash
-git clone https://github.com/hackergene/AI-ThemeStore-Community.git
-cd AI-ThemeStore-Community
+git clone https://github.com/hackergene/AI-ThemeStore.git
+cd AI-ThemeStore
 ./scripts/build-app.sh
-open "dist/AI ThemeStore Community.app"
+open "dist/AI ThemeStore.app"
 ```
 
-The build script creates the Community app locally. It does not modify or
+The build script creates the app locally. It does not modify or
 re-sign the official Codex app.
 
 ### Use the app
 
-1. Open AI ThemeStore Community.
+1. Open AI ThemeStore.
 2. Select a local theme and choose **Apply Theme**.
 3. The app restarts Codex and verifies the themed New Chat and task surfaces.
 4. Choose **Restore Codex Appearance** whenever you want the native look back.
@@ -122,12 +122,12 @@ a minimal example.
 
 ## Privacy and safety
 
-The Community edition works offline and contains no telemetry or account code.
+AI ThemeStore works offline and contains no telemetry or account code.
 Its debugging connection is bound to `127.0.0.1` only. Because a local debugging
 port is sensitive while a theme is active, avoid running untrusted local
 software at the same time. Read the full boundary in [SECURITY.md](./SECURITY.md).
 
-## Community and full edition
+## Project scope
 
 This repository is intentionally focused on a small, auditable, offline Codex
 theme experience. The broader theme catalog and hosted browsing experience are
