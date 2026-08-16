@@ -5,6 +5,7 @@ import {
   CHAT_PANE_DIVIDER_PARITY_EXPRESSION,
   CHAT_PANE_RESOLVER_EXPRESSION,
   CODEX_SHELL_PROBE_EXPRESSION,
+  COMPOSER_NATIVE_LAYER_COVERAGE_EXPRESSION,
   COMPOSER_SURFACE_RESOLVER_EXPRESSION,
   OPTIONAL_SIDEBAR_VISIBILITY_EXPRESSION,
   SHELL_MAIN_RESOLVER_EXPRESSION,
@@ -555,11 +556,25 @@ async function verifySession(session, expected = null) {
     const placeholder = editor?.querySelector('.placeholder') ?? null;
     const composerSurfaceMetric = (node) => {
       const style = node ? getComputedStyle(node) : null;
+      const nativeLayers = node
+        ? [...node.children]
+          .filter((child) => child.matches('[data-composer-layout]'))
+          .map((child) => {
+            const childStyle = getComputedStyle(child);
+            return {
+              backgroundColor: childStyle.backgroundColor,
+              backgroundAlpha: backgroundAlpha(childStyle.backgroundColor),
+              backgroundImage: childStyle.backgroundImage,
+            };
+          })
+        : [];
       return {
         backgroundColor: style?.backgroundColor ?? null,
         backgroundAlpha: style ? backgroundAlpha(style.backgroundColor) : null,
         backdropFilter: style?.backdropFilter ?? null,
         borderRadius: style?.borderRadius ?? null,
+        nativeLayers,
+        nativeLayersClear: ${COMPOSER_NATIVE_LAYER_COVERAGE_EXPRESSION}(nativeLayers),
         pass: false,
       };
     };
@@ -814,7 +829,8 @@ async function verifySession(session, expected = null) {
       metric.backgroundAlpha != null &&
       Math.abs(metric.backgroundAlpha - expectedComposerAlpha) <= 0.035 &&
       metric.backdropFilter?.includes('blur(18px)') &&
-      metric.borderRadius === '21px'
+      metric.borderRadius === '21px' &&
+      metric.nativeLayersClear
     );
     result.composerSurface.pass = composerSurfacePass(result.composerSurface);
     result.chatPaneCoverage.composerSurface.pass = !result.chatPaneCoverage.expected ||
@@ -957,6 +973,7 @@ async function verifySession(session, expected = null) {
     const modernHomeLayoutPass = !result.modernHome || Boolean(
       result.homeBox?.visible && result.hero?.visible && result.composer?.visible &&
       result.hero.y >= result.homeBox.y - 2 &&
+      result.hero.y - result.homeBox.y <= 2 &&
       result.hero.y + result.hero.height <= result.homeBox.y + result.homeBox.height + 2 &&
       result.composer.y >= result.homeBox.y - 2 &&
       result.composer.y + result.composer.height <= result.homeBox.y + result.homeBox.height + 2 &&

@@ -15,6 +15,21 @@ for script in "$ROOT"/engine/scripts/*.mjs "$ROOT"/engine/assets/*.js; do
   "$NODE" --check "$script" >/dev/null
 done
 
+/usr/bin/grep -F -q '.ai-themestore-composer-surface > [data-composer-layout]' \
+  "$ROOT/engine/assets/ai-themestore.css" || {
+  printf 'Theme CSS must clear the opaque Codex semantic composer body.\n' >&2
+  exit 1
+}
+/usr/bin/grep -F -q 'metric.nativeLayersClear' "$ROOT/engine/scripts/injector.mjs" || {
+  printf 'Live verification must reject opaque native layers inside the composer.\n' >&2
+  exit 1
+}
+/usr/bin/grep -F -q 'result.hero.y - result.homeBox.y <= 2' \
+  "$ROOT/engine/scripts/injector.mjs" || {
+  printf 'Live verification must reject the modern Home top spacer regression.\n' >&2
+  exit 1
+}
+
 "$NODE" -e '
   const fs = require("node:fs");
   const path = require("node:path");
