@@ -62,6 +62,15 @@ export function resolveComposerSurfaceDocument(documentRef, scopeRef = documentR
 export const COMPOSER_SURFACE_RESOLVER_EXPRESSION =
   `(${resolveComposerSurfaceDocument.toString()})(document)`;
 
+export function composerNativeLayerCoveragePass(layers) {
+  return layers.every((layer) =>
+    layer.backgroundAlpha <= 0.035 &&
+    (layer.backgroundImage === "none" || layer.backgroundImage === null));
+}
+
+export const COMPOSER_NATIVE_LAYER_COVERAGE_EXPRESSION =
+  `(${composerNativeLayerCoveragePass.toString()})`;
+
 export function resolveChatPaneDocument(documentRef) {
   const marked = documentRef.querySelector("aside.ai-themestore-chat-pane");
   if (marked) return marked;

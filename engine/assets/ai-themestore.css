@@ -457,6 +457,13 @@ html.ai-themestore .ai-themestore-composer-surface {
   overflow: visible !important;
 }
 
+/* Codex 26.803 can paint an opaque layout body inside the semantic composer
+   surface. Keep the native controls live while letting the themed glass show. */
+html.ai-themestore .ai-themestore-composer-surface > [data-composer-layout] {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
 html.ai-themestore main.main-surface:not(.ai-themestore-home-shell)
   .sticky.bottom-0
   > .pointer-events-none.absolute.inset-x-0.bottom-0
@@ -1219,7 +1226,7 @@ html.ai-themestore .ai-themestore-home-v2 > .ai-themestore-home-banner-slot > :f
 }
 
 html.ai-themestore .ai-themestore-home-v2 > .ai-themestore-home-layout {
-  padding-top: 15px !important;
+  padding-top: 0 !important;
   min-height: 100% !important;
 }
 

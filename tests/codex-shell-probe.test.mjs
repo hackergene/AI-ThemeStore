@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   chatPaneDividerParityPass,
+  composerNativeLayerCoveragePass,
   optionalSidebarVisibilityPass,
   probeCodexShellDocument,
   resolveChatPaneDocument,
@@ -205,6 +206,21 @@ const semanticComposerScope = {
 };
 assert.equal(resolveComposerSurfaceDocument(semanticComposerScope), semanticComposerSurface,
   "Codex 26.730 semantic composer surface must resolve through stable data attributes");
+
+assert.equal(composerNativeLayerCoveragePass([]), true,
+  "legacy composers without a semantic native body must remain supported");
+assert.equal(composerNativeLayerCoveragePass([{
+  backgroundAlpha: 0,
+  backgroundImage: "none",
+}]), true, "a transparent Codex semantic composer body must preserve theme glass");
+assert.equal(composerNativeLayerCoveragePass([{
+  backgroundAlpha: 0.864706,
+  backgroundImage: "none",
+}]), false, "an opaque Codex semantic composer body must fail verification");
+assert.equal(composerNativeLayerCoveragePass([{
+  backgroundAlpha: 0,
+  backgroundImage: "linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0))",
+}]), false, "a native composer background image must fail verification");
 
 assert.equal(chatPaneDividerParityPass({ chatPanePresent: false }), true,
   "absent Ask pane must not require divider verification");
