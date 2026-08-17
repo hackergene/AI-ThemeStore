@@ -50,20 +50,6 @@ html.ai-themestore body {
   font-family: "Microsoft YaHei UI", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif !important;
 }
 
-html.ai-themestore body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: .42;
-  background-image:
-    radial-gradient(circle, color-mix(in srgb, var(--ds-lime) 72%, transparent) 0 1px, transparent 1.8px),
-    radial-gradient(circle, color-mix(in srgb, var(--ds-cyan) 52%, transparent) 0 1px, transparent 1.8px);
-  background-position: 0 0, 27px 33px;
-  background-size: 71px 71px, 89px 89px;
-}
-
 html.ai-themestore aside.app-shell-left-panel {
   background:
     radial-gradient(circle at 12% 4%, color-mix(in srgb, var(--ds-cyan) 10%, transparent), transparent 28%),
@@ -754,10 +740,6 @@ html.ai-themestore[data-themestore-background="full"]:has(main.ai-themestore-hom
     var(--ai-themestore-art) var(--ds-hero-position) / cover fixed no-repeat !important;
 }
 
-html.ai-themestore[data-themestore-background="full"] body::before {
-  opacity: .18;
-}
-
 html.ai-themestore #ai-themestore-motion {
   display: none;
 }
@@ -786,10 +768,6 @@ html.ai-themestore[data-themestore-background="full"][data-themestore-media="vid
   object-fit: cover;
   pointer-events: none;
   user-select: none;
-}
-
-html.ai-themestore[data-themestore-background="full"][data-themestore-media="video"] body::before {
-  z-index: 1;
 }
 
 html.ai-themestore[data-themestore-background="full"][data-themestore-media="video"] body::after {
@@ -880,12 +858,13 @@ html.ai-themestore[data-themestore-background="full"]
   clip-path: none !important;
 }
 
-/* Codex 26.810 renamed the task composer footer gradient tokens. Even after
-   clearing its image, the 153px sticky backdrop layer can composite as an
-   opaque black rectangle, so remove the layer itself. */
+/* Codex 26.810 uses both a 153px from/via footer layer and a 42px
+   from/to-transparent layer while task progress is visible. Even after
+   clearing their images, sticky compositing can leave a black rectangle or
+   edge above the composer, so remove every from-surface footer layer. */
 html.ai-themestore[data-themestore-background="full"]
   main.main-surface:not(.ai-themestore-home-shell)
-  [class~="bg-gradient-to-t"][class~="from-surface"][class~="via-surface"] {
+  [class~="bg-gradient-to-t"][class~="from-surface"] {
   display: none !important;
   background-image: none !important;
   background-clip: border-box !important;
@@ -1030,13 +1009,6 @@ html.ai-themestore[data-themestore-shell="light"] body {
     linear-gradient(180deg, #fbf8f9 0%, #f3eef0 100%) !important;
   color: var(--ds-text) !important;
   font-family: "SF Pro Text", "PingFang SC", "Microsoft YaHei UI", system-ui, sans-serif !important;
-}
-
-html.ai-themestore[data-themestore-shell="light"] body::before {
-  opacity: .12 !important;
-  background-image:
-    radial-gradient(circle, rgba(226, 85, 99, .35) 0 1px, transparent 1.8px),
-    radial-gradient(circle, rgba(243, 168, 175, .28) 0 1px, transparent 1.8px) !important;
 }
 
 html.ai-themestore[data-themestore-shell="light"] aside.app-shell-left-panel {

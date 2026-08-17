@@ -15,6 +15,12 @@ for script in "$ROOT"/engine/scripts/*.mjs "$ROOT"/engine/assets/*.js; do
   "$NODE" --check "$script" >/dev/null
 done
 
+if /usr/bin/grep -F -q 'html.ai-themestore body::before' \
+  "$ROOT/engine/assets/ai-themestore.css"; then
+  printf 'Theme CSS must not reintroduce the global tiled dot matrix.\n' >&2
+  exit 1
+fi
+
 /usr/bin/grep -F -q '.ai-themestore-composer-surface > [data-composer-layout]' \
   "$ROOT/engine/assets/ai-themestore.css" || {
   printf 'Theme CSS must clear the opaque Codex semantic composer body.\n' >&2
@@ -24,9 +30,9 @@ done
   printf 'Live verification must reject opaque native layers inside the composer.\n' >&2
   exit 1
 }
-/usr/bin/grep -F -q '[class~="from-surface"][class~="via-surface"]' \
+/usr/bin/grep -F -q '[class~="bg-gradient-to-t"][class~="from-surface"]' \
   "$ROOT/engine/assets/ai-themestore.css" || {
-  printf 'Task coverage must remove the Codex 26.810 composer footer gradient.\n' >&2
+  printf 'Task coverage must remove every Codex 26.810 composer footer gradient variant.\n' >&2
   exit 1
 }
 /usr/bin/grep -F -q 'gradientSurfaces: taskGradientMetrics' \
