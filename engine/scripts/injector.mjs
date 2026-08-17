@@ -631,7 +631,7 @@ async function verifySession(session, expected = null) {
       : [];
     const taskGradientSurfaces = [...document.querySelectorAll(
       '[class~="bg-gradient-to-t"][class~="from-token-main-surface-primary"], ' +
-      '[class~="bg-gradient-to-t"][class~="from-surface"][class~="via-surface"]',
+      '[class~="bg-gradient-to-t"][class~="from-surface"]',
     )].filter((node) => !chatPaneNode?.contains(node));
     const nativeSurfacesClear = chatPaneNativeSurfaces.every((node) => {
       const style = getComputedStyle(node);

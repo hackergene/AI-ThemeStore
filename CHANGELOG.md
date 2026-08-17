@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.3 — 2026-08-17
+
+- Removed the global tiled dot overlay that had become unusually prominent on
+  newer Codex task views, leaving theme artwork clean and uninterrupted.
+- Removed both the 153px normal-task footer gradient and the 42px progress-state
+  gradient that could leave a dark edge above the composer.
+- Expanded regression and live verification gates to cover every
+  `from-surface` footer variant and reject any restored global dot overlay.
+
 ## 0.1.2 — 2026-08-17
 
 - Added Codex 26.810 compatibility for its renamed Home fade, project utility,
