@@ -38,6 +38,31 @@ export function resolveShellMainDocument(documentRef) {
 export const SHELL_MAIN_RESOLVER_EXPRESSION =
   `(${resolveShellMainDocument.toString()})(document)`;
 
+export function shellMainCoveragePass({
+  visible,
+  homeRoute,
+  backgroundAlpha,
+  backgroundImage,
+}) {
+  if (!visible || backgroundAlpha == null) return false;
+  return backgroundAlpha <= 0.035 &&
+    (backgroundImage === "none" || backgroundImage === null);
+}
+
+export const SHELL_MAIN_COVERAGE_EXPRESSION =
+  `(${shellMainCoveragePass.toString()})`;
+
+export function compositedSurfaceAlpha(backdropAlpha, foregroundAlpha) {
+  if (!Number.isFinite(backdropAlpha) || !Number.isFinite(foregroundAlpha)) return null;
+  if (backdropAlpha < 0 || backdropAlpha > 1 || foregroundAlpha < 0 || foregroundAlpha > 1) {
+    return null;
+  }
+  return backdropAlpha + foregroundAlpha * (1 - backdropAlpha);
+}
+
+export const COMPOSITED_SURFACE_ALPHA_EXPRESSION =
+  `(${compositedSurfaceAlpha.toString()})`;
+
 export function resolveToolPaneDocument(documentRef) {
   return documentRef.querySelector(
     'aside[data-app-shell-focus-area="right-panel"]',
@@ -65,11 +90,40 @@ export const COMPOSER_SURFACE_RESOLVER_EXPRESSION =
 export function composerNativeLayerCoveragePass(layers) {
   return layers.every((layer) =>
     layer.backgroundAlpha <= 0.035 &&
-    (layer.backgroundImage === "none" || layer.backgroundImage === null));
+    (layer.backgroundImage === "none" || layer.backgroundImage === null) &&
+    (layer.backdropFilter === "none" || layer.backdropFilter === null) &&
+    (layer.boxShadow === "none" || layer.boxShadow === null));
 }
 
 export const COMPOSER_NATIVE_LAYER_COVERAGE_EXPRESSION =
   `(${composerNativeLayerCoveragePass.toString()})`;
+
+export function homeTopFadeCoveragePass({ homeRoute, present, backgroundImage, backdropFilter, boxShadow }) {
+  if (!homeRoute || !present) return true;
+  return (backgroundImage === "none" || backgroundImage === null) &&
+    (backdropFilter === "none" || backdropFilter === null) &&
+    (boxShadow === "none" || boxShadow === null);
+}
+
+export const HOME_TOP_FADE_COVERAGE_EXPRESSION =
+  `(${homeTopFadeCoveragePass.toString()})`;
+
+export function workspaceSurfaceCoveragePass({
+  homeRoute,
+  present,
+  backgroundAlpha,
+  backdropFilter,
+}) {
+  if (!homeRoute) return true;
+  return Boolean(
+    present && backgroundAlpha != null &&
+    backgroundAlpha >= 0.505 && backgroundAlpha <= 0.575 &&
+    backdropFilter?.includes("blur(18px)"),
+  );
+}
+
+export const WORKSPACE_SURFACE_COVERAGE_EXPRESSION =
+  `(${workspaceSurfaceCoveragePass.toString()})`;
 
 export function resolveChatPaneDocument(documentRef) {
   const marked = documentRef.querySelector("aside.ai-themestore-chat-pane");

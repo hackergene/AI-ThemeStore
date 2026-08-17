@@ -476,8 +476,19 @@
         controls?.classList.add("ai-themestore-home-controls");
       }
     }
+    const homeTopFadeClass = "ai-themestore-home-top-fade";
+    for (const candidate of document.querySelectorAll(`.${homeTopFadeClass}`)) {
+      candidate.classList.remove(homeTopFadeClass);
+    }
+    if (home && shellMain) {
+      shellMain.querySelector('[class*="_MainContentTopFade_"]')?.classList.add(homeTopFadeClass);
+    }
     for (const hint of document.querySelectorAll(".ai-themestore-project-hint")) {
       if (!home?.contains(hint)) hint.remove();
+    }
+    const projectUtilityClass = "ai-themestore-project-utility";
+    for (const candidate of document.querySelectorAll(`.${projectUtilityClass}`)) {
+      candidate.classList.remove(projectUtilityClass);
     }
     if (home) {
       for (const scrollArea of home.querySelectorAll("[data-composer-utility-bar-scroll-area]")) {
@@ -486,6 +497,7 @@
         if (!projectSelector) continue;
         const utilityBar = scrollArea.parentElement;
         if (!utilityBar) continue;
+        utilityBar.classList.add(projectUtilityClass);
         let hint = utilityBar.querySelector(":scope > .ai-themestore-project-hint");
         if (!hint) {
           hint = document.createElement("span");
@@ -576,6 +588,7 @@
     for (const name of THEME_VARIABLES) document.documentElement?.style.removeProperty(name);
     document.querySelectorAll(".ai-themestore-home").forEach((node) => node.classList.remove("ai-themestore-home"));
     document.querySelectorAll(".ai-themestore-home-shell").forEach((node) => node.classList.remove("ai-themestore-home-shell"));
+    document.querySelectorAll(".ai-themestore-home-top-fade").forEach((node) => node.classList.remove("ai-themestore-home-top-fade"));
     document.querySelectorAll(".ai-themestore-chat-pane").forEach((node) => node.classList.remove("ai-themestore-chat-pane"));
     document.querySelectorAll(".ai-themestore-tool-pane").forEach((node) => node.classList.remove("ai-themestore-tool-pane"));
     document.querySelectorAll(`.${COMPOSER_SURFACE_CLASS}`).forEach((node) => {
@@ -604,6 +617,9 @@
       ".ai-themestore-composer-signature, .ai-themestore-composer-quote, " +
       ".ai-themestore-composer-orbit, .ai-themestore-project-hint",
     ).forEach((node) => node.remove());
+    document.querySelectorAll(".ai-themestore-project-utility").forEach((node) => {
+      node.classList.remove("ai-themestore-project-utility");
+    });
     document.getElementById(STYLE_ID)?.remove();
     document.getElementById(CHROME_ID)?.remove();
     const motionVideo = document.getElementById(VIDEO_ID);

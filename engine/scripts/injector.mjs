@@ -5,11 +5,15 @@ import {
   CHAT_PANE_DIVIDER_PARITY_EXPRESSION,
   CHAT_PANE_RESOLVER_EXPRESSION,
   CODEX_SHELL_PROBE_EXPRESSION,
+  COMPOSITED_SURFACE_ALPHA_EXPRESSION,
   COMPOSER_NATIVE_LAYER_COVERAGE_EXPRESSION,
   COMPOSER_SURFACE_RESOLVER_EXPRESSION,
+  HOME_TOP_FADE_COVERAGE_EXPRESSION,
   OPTIONAL_SIDEBAR_VISIBILITY_EXPRESSION,
+  SHELL_MAIN_COVERAGE_EXPRESSION,
   SHELL_MAIN_RESOLVER_EXPRESSION,
   TOOL_PANE_RESOLVER_EXPRESSION,
+  WORKSPACE_SURFACE_COVERAGE_EXPRESSION,
   resolveComposerSurfaceDocument,
 } from "./codex-shell-probe.mjs";
 
@@ -542,6 +546,7 @@ async function verifySession(session, expected = null) {
       : projectSelector?.querySelector(':scope > button') ?? projectSelector);
     const projectScrollArea = projectSelector?.closest('[data-composer-utility-bar-scroll-area]') ?? null;
     const projectUtilityBar = projectScrollArea?.parentElement ?? null;
+    const projectUtilityStyle = projectUtilityBar ? getComputedStyle(projectUtilityBar) : null;
     const projectHintNode = projectUtilityBar?.querySelector(':scope > .ai-themestore-project-hint') ?? null;
     const projectRightControl = projectScrollArea?.nextElementSibling ?? null;
     const composerNode = ${COMPOSER_SURFACE_RESOLVER_EXPRESSION};
@@ -565,6 +570,8 @@ async function verifySession(session, expected = null) {
               backgroundColor: childStyle.backgroundColor,
               backgroundAlpha: backgroundAlpha(childStyle.backgroundColor),
               backgroundImage: childStyle.backgroundImage,
+              backdropFilter: childStyle.backdropFilter,
+              boxShadow: childStyle.boxShadow,
             };
           })
         : [];
@@ -591,6 +598,17 @@ async function verifySession(session, expected = null) {
       semantic: shellMainNode?.hasAttribute('data-app-shell-main-surface') ?? false,
       backgroundColor: shellMainStyle?.backgroundColor ?? null,
       backgroundAlpha: shellMainStyle ? backgroundAlpha(shellMainStyle.backgroundColor) : null,
+      backgroundImage: shellMainStyle?.backgroundImage ?? null,
+      backdropFilter: shellMainStyle?.backdropFilter ?? null,
+      pass: false,
+    };
+    const homeTopFadeNode = document.querySelector('.ai-themestore-home-top-fade');
+    const homeTopFadeStyle = homeTopFadeNode ? getComputedStyle(homeTopFadeNode) : null;
+    const homeTopFadeCoverage = {
+      present: Boolean(homeTopFadeNode),
+      backgroundImage: homeTopFadeStyle?.backgroundImage ?? null,
+      backdropFilter: homeTopFadeStyle?.backdropFilter ?? null,
+      boxShadow: homeTopFadeStyle?.boxShadow ?? null,
       pass: false,
     };
     const chrome = document.getElementById('ai-themestore-chrome');
@@ -612,18 +630,28 @@ async function verifySession(session, expected = null) {
       )]
       : [];
     const taskGradientSurfaces = [...document.querySelectorAll(
-      '[class~="bg-gradient-to-t"][class~="from-token-main-surface-primary"]',
+      '[class~="bg-gradient-to-t"][class~="from-token-main-surface-primary"], ' +
+      '[class~="bg-gradient-to-t"][class~="from-surface"][class~="via-surface"]',
     )].filter((node) => !chatPaneNode?.contains(node));
     const nativeSurfacesClear = chatPaneNativeSurfaces.every((node) => {
       const style = getComputedStyle(node);
       return style.backgroundColor === 'rgba(0, 0, 0, 0)' && style.backgroundImage === 'none';
     });
-    const gradientSurfacesClear = chatPaneGradientSurfaces.every(
-      (node) => getComputedStyle(node).backgroundImage === 'none',
-    );
-    const taskGradientsClear = taskGradientSurfaces.every(
-      (node) => getComputedStyle(node).backgroundImage === 'none',
-    );
+    const gradientSurfaceMetric = (node) => {
+      const style = getComputedStyle(node);
+      const rect = node.getBoundingClientRect();
+      return {
+        display: style.display,
+        backgroundImage: style.backgroundImage,
+        width: rect.width,
+        height: rect.height,
+        removed: style.display === 'none' && rect.width === 0 && rect.height === 0,
+      };
+    };
+    const chatPaneGradientMetrics = chatPaneGradientSurfaces.map(gradientSurfaceMetric);
+    const taskGradientMetrics = taskGradientSurfaces.map(gradientSurfaceMetric);
+    const gradientSurfacesClear = chatPaneGradientMetrics.every((metric) => metric.removed);
+    const taskGradientsClear = taskGradientMetrics.every((metric) => metric.removed);
     const chatPaneNativeDivider = chatPaneNode?.querySelector(
       '[class~="bg-token-main-surface-primary"][class~="border-l"][class~="border-token-border-default"]',
     ) ?? null;
@@ -660,6 +688,7 @@ async function verifySession(session, expected = null) {
       nativeSurfaceCount: chatPaneNativeSurfaces.length,
       nativeSurfacesClear,
       gradientSurfaceCount: chatPaneGradientSurfaces.length,
+      gradientSurfaces: chatPaneGradientMetrics,
       gradientSurfacesClear,
       dividerParity,
       artworkSpansChatPane,
@@ -672,6 +701,7 @@ async function verifySession(session, expected = null) {
     );
     const taskSurfaceCoverage = {
       gradientSurfaceCount: taskGradientSurfaces.length,
+      gradientSurfaces: taskGradientMetrics,
       gradientsClear: taskGradientsClear,
       pass: taskGradientsClear,
     };
@@ -727,6 +757,8 @@ async function verifySession(session, expected = null) {
       cardSurfaceMix: rootStyle.getPropertyValue('--ds-card-surface-mix').trim(),
       workspaceSurfaceMix: rootStyle.getPropertyValue('--ds-workspace-surface-mix').trim(),
       composerSurfaceMix: rootStyle.getPropertyValue('--ds-composer-surface-mix').trim(),
+      taskSurfaceMix: rootStyle.getPropertyValue('--ds-task-surface-mix').trim(),
+      taskComposerSurfaceMix: rootStyle.getPropertyValue('--ds-task-composer-surface-mix').trim(),
       controlSurfaceBlur: rootStyle.getPropertyValue('--ds-control-surface-blur').trim(),
       sidebarSurfaceMix: rootStyle.getPropertyValue('--ds-sidebar-surface-mix').trim(),
       sidebarSurfaceBlur: rootStyle.getPropertyValue('--ds-sidebar-surface-blur').trim(),
@@ -743,6 +775,8 @@ async function verifySession(session, expected = null) {
       visualBaseline.cardSurfaceMix === '50%' &&
       visualBaseline.workspaceSurfaceMix === '54%' &&
       visualBaseline.composerSurfaceMix === '54%' &&
+      visualBaseline.taskSurfaceMix === '0%' &&
+      visualBaseline.taskComposerSurfaceMix === '54%' &&
       visualBaseline.controlSurfaceBlur === '18px' &&
       visualBaseline.sidebarSurfaceMix === '50%' &&
       visualBaseline.sidebarSurfaceBlur === '0px' &&
@@ -771,6 +805,13 @@ async function verifySession(session, expected = null) {
       projectButton,
       projectUtility: {
         bar: box(projectUtilityBar),
+        surface: {
+          present: Boolean(projectUtilityBar),
+          backgroundColor: projectUtilityStyle?.backgroundColor ?? null,
+          backgroundAlpha: projectUtilityStyle ? backgroundAlpha(projectUtilityStyle.backgroundColor) : null,
+          backdropFilter: projectUtilityStyle?.backdropFilter ?? null,
+          pass: false,
+        },
         scrollArea: box(projectScrollArea),
         hint: {
           ...box(projectHintNode),
@@ -785,6 +826,7 @@ async function verifySession(session, expected = null) {
       composer,
       composerSurface,
       shellMainCoverage,
+      homeTopFadeCoverage,
       chatPaneCoverage,
       taskSurfaceCoverage,
       toolPaneCoverage,
@@ -818,20 +860,34 @@ async function verifySession(session, expected = null) {
       },
     };
     const shell = document.documentElement.getAttribute('data-themestore-shell') || 'unknown';
-    result.shellMainCoverage.pass = Boolean(
-      result.shellMainCoverage.visible &&
-      result.shellMainCoverage.backgroundAlpha != null &&
-      result.shellMainCoverage.backgroundAlpha >= 0.28 &&
-      result.shellMainCoverage.backgroundAlpha <= 0.55
-    );
+    result.shellMainCoverage.pass = ${SHELL_MAIN_COVERAGE_EXPRESSION}({
+      ...result.shellMainCoverage,
+      homeRoute: result.homeRoute,
+    });
+    result.homeTopFadeCoverage.pass = ${HOME_TOP_FADE_COVERAGE_EXPRESSION}({
+      ...result.homeTopFadeCoverage,
+      homeRoute: result.homeRoute,
+    });
+    const composerBackdropAlpha = result.homeRoute ? 0 : result.shellMainCoverage.backgroundAlpha;
     const expectedComposerAlpha = shell === 'light' ? 0.94 : 0.54;
-    const composerSurfacePass = (metric) => Boolean(
-      metric.backgroundAlpha != null &&
-      Math.abs(metric.backgroundAlpha - expectedComposerAlpha) <= 0.035 &&
-      metric.backdropFilter?.includes('blur(18px)') &&
-      metric.borderRadius === '21px' &&
-      metric.nativeLayersClear
-    );
+    const composerSurfacePass = (metric, backdropAlpha = composerBackdropAlpha) => {
+      metric.effectiveBackgroundAlpha = ${COMPOSITED_SURFACE_ALPHA_EXPRESSION}(
+        backdropAlpha,
+        metric.backgroundAlpha,
+      );
+      const effectiveAlphaPass = shell === 'light' || Boolean(
+        metric.effectiveBackgroundAlpha != null &&
+        Math.abs(metric.effectiveBackgroundAlpha - 0.54) <= 0.035
+      );
+      return Boolean(
+        metric.backgroundAlpha != null &&
+        Math.abs(metric.backgroundAlpha - expectedComposerAlpha) <= 0.035 &&
+        effectiveAlphaPass &&
+        metric.backdropFilter?.includes('blur(18px)') &&
+        metric.borderRadius === '21px' &&
+        metric.nativeLayersClear
+      );
+    };
     result.composerSurface.pass = composerSurfacePass(result.composerSurface);
     result.chatPaneCoverage.composerSurface.pass = !result.chatPaneCoverage.expected ||
       composerSurfacePass(result.chatPaneCoverage.composerSurface);
@@ -924,6 +980,10 @@ async function verifySession(session, expected = null) {
       orbit.ariaHidden && orbit.pointerEvents === 'none' && orbitBoundsPass
     );
     const projectUtility = result.projectUtility;
+    projectUtility.surface.pass = ${WORKSPACE_SURFACE_COVERAGE_EXPRESSION}({
+      ...projectUtility.surface,
+      homeRoute: result.homeRoute,
+    });
     const hintShouldBeVisible = innerWidth > 1120;
     const hintSingleRowPass = !projectUtility.hint.visible || Boolean(
       projectUtility.bar?.visible && result.projectButton?.visible &&
@@ -944,7 +1004,7 @@ async function verifySession(session, expected = null) {
         projectUtility.bar?.visible && projectUtility.scrollArea?.visible && result.projectButton?.visible &&
         projectUtility.hint.ariaHidden && projectUtility.hint.pointerEvents === 'none' &&
         projectUtility.hint.role === null && projectUtility.hint.immediatelyBeforeScrollArea &&
-        Boolean(projectUtility.hint.text) &&
+        Boolean(projectUtility.hint.text) && projectUtility.surface.pass &&
         (hintShouldBeVisible ? projectUtility.hint.visible : !projectUtility.hint.visible) &&
         hintSingleRowPass && hintBeforeProjectPass && rightControlSafePass
       ) : !projectUtility.hint.visible
@@ -966,6 +1026,7 @@ async function verifySession(session, expected = null) {
       result.signature.pass && result.composerDecorations.pass &&
       result.composerSurface.pass &&
       result.shellMainCoverage.pass &&
+      result.homeTopFadeCoverage.pass &&
       result.chatPaneCoverage.pass && result.taskSurfaceCoverage.pass &&
       result.toolPaneCoverage.pass &&
       result.readability.pass &&

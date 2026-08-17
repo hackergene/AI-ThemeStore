@@ -20,6 +20,8 @@
   --ds-card-surface-mix: 50%;
   --ds-workspace-surface-mix: 54%;
   --ds-composer-surface-mix: 54%;
+  --ds-task-surface-mix: 0%;
+  --ds-task-composer-surface-mix: 54%;
   --ds-control-surface-blur: 18px;
   --ds-sidebar-surface-mix: 50%;
   --ds-sidebar-surface-blur: 0px;
@@ -457,11 +459,20 @@ html.ai-themestore .ai-themestore-composer-surface {
   overflow: visible !important;
 }
 
+/* Keep task and Home composers on the same single 54% glass layer. */
+html.ai-themestore[data-themestore-shell="dark"]
+  main.main-surface:not(.ai-themestore-home-shell)
+  .ai-themestore-composer-surface {
+  background: color-mix(in srgb, var(--ds-panel) var(--ds-task-composer-surface-mix), transparent) !important;
+}
+
 /* Codex 26.803 can paint an opaque layout body inside the semantic composer
    surface. Keep the native controls live while letting the themed glass show. */
 html.ai-themestore .ai-themestore-composer-surface > [data-composer-layout] {
   background-color: transparent !important;
   background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }
 
 html.ai-themestore main.main-surface:not(.ai-themestore-home-shell)
@@ -592,7 +603,8 @@ html.ai-themestore[data-themestore-mark-style="none"] .ai-themestore-composer-su
   display: none;
 }
 
-.ai-themestore-home div:has(> .horizontal-scroll-fade-mask .group\/project-selector) {
+.ai-themestore-home div:has(> .horizontal-scroll-fade-mask .group\/project-selector),
+.ai-themestore-home .ai-themestore-project-utility {
   position: relative;
   border: 1px solid color-mix(in srgb, var(--ds-cyan) 18%, transparent);
   border-bottom: 0;
@@ -603,7 +615,8 @@ html.ai-themestore[data-themestore-mark-style="none"] .ai-themestore-composer-su
   backdrop-filter: blur(var(--ds-control-surface-blur)) saturate(112%) !important;
 }
 
-.ai-themestore-home div:has(> .horizontal-scroll-fade-mask .group\/project-selector)::before {
+.ai-themestore-home div:has(> .horizontal-scroll-fade-mask .group\/project-selector)::before,
+.ai-themestore-home .ai-themestore-project-utility::before {
   content: none !important;
 }
 
@@ -623,7 +636,8 @@ html.ai-themestore[data-themestore-mark-style="none"] .ai-themestore-composer-su
   user-select: none;
 }
 
-.ai-themestore-home div:has(> .horizontal-scroll-fade-mask .group\/project-selector)::after {
+.ai-themestore-home div:has(> .horizontal-scroll-fade-mask .group\/project-selector)::after,
+.ai-themestore-home .ai-themestore-project-utility::after {
   content: "";
   position: absolute;
   left: 0;
@@ -819,7 +833,7 @@ html.ai-themestore[data-themestore-background="full"] main.main-surface {
 }
 
 html.ai-themestore[data-themestore-background="full"] main.main-surface:not(.ai-themestore-home-shell) {
-  background: color-mix(in srgb, var(--ds-panel) var(--ds-sidebar-surface-mix), transparent) !important;
+  background: color-mix(in srgb, var(--ds-panel) var(--ds-task-surface-mix), transparent) !important;
   backdrop-filter: blur(var(--ds-sidebar-surface-blur)) saturate(112%) !important;
 }
 
@@ -860,6 +874,19 @@ html.ai-themestore[data-themestore-background="full"]
 html.ai-themestore[data-themestore-background="full"]
   main.main-surface:not(.ai-themestore-home-shell)
   [class~="bg-gradient-to-t"][class~="from-token-main-surface-primary"] {
+  display: none !important;
+  background-image: none !important;
+  background-clip: border-box !important;
+  clip-path: none !important;
+}
+
+/* Codex 26.810 renamed the task composer footer gradient tokens. Even after
+   clearing its image, the 153px sticky backdrop layer can composite as an
+   opaque black rectangle, so remove the layer itself. */
+html.ai-themestore[data-themestore-background="full"]
+  main.main-surface:not(.ai-themestore-home-shell)
+  [class~="bg-gradient-to-t"][class~="from-surface"][class~="via-surface"] {
+  display: none !important;
   background-image: none !important;
   background-clip: border-box !important;
   clip-path: none !important;
@@ -890,6 +917,27 @@ html.ai-themestore[data-themestore-background="full"]
 
 html.ai-themestore[data-themestore-background="full"][data-themestore-sidebar-frost="clear"]
   aside.ai-themestore-tool-pane {
+  backdrop-filter: none !important;
+}
+
+/* Keep the artwork continuous across the native app header boundary and match
+   the transparent task main surface. */
+html.ai-themestore[data-themestore-background="full"] main.main-surface.ai-themestore-home-shell,
+html.ai-themestore[data-themestore-shell="light"][data-themestore-background="full"] main.main-surface.ai-themestore-home-shell {
+  background-color: transparent !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Codex 26.810 adds a native 24px top fade at the content-frame boundary.
+   It is useful on opaque pages but cuts a dark horizontal band through Home's
+   continuous wallpaper, so disable only the renderer-marked Home instance. */
+html.ai-themestore[data-themestore-background="full"]
+  main.main-surface.ai-themestore-home-shell
+  .ai-themestore-home-top-fade {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
   backdrop-filter: none !important;
 }
 
