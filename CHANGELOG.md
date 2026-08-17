@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.2 — 2026-08-17
+
+- Added Codex 26.810 compatibility for its renamed Home fade, project utility,
+  and task composer footer surfaces.
+- Matched Home and task brightness by removing the task-wide dimming layer and
+  keeping both composers on one 54% / 18px glass surface.
+- Removed the hidden 153px sticky footer compositing layer that could render as
+  a large black rectangle above the task composer.
+- Strengthened live verification for effective surface opacity, nested native
+  blur and shadow layers, Home toolbar styling, and zero-sized footer gradients.
+
 ## 0.1.1 — 2026-08-16
 
 - Restored themed composer glass on Codex 26.803 by clearing its new opaque

@@ -24,6 +24,41 @@ done
   printf 'Live verification must reject opaque native layers inside the composer.\n' >&2
   exit 1
 }
+/usr/bin/grep -F -q '[class~="from-surface"][class~="via-surface"]' \
+  "$ROOT/engine/assets/ai-themestore.css" || {
+  printf 'Task coverage must remove the Codex 26.810 composer footer gradient.\n' >&2
+  exit 1
+}
+/usr/bin/grep -F -q 'gradientSurfaces: taskGradientMetrics' \
+  "$ROOT/engine/scripts/injector.mjs" || {
+  printf 'Live verification must inspect native sticky gradient geometry.\n' >&2
+  exit 1
+}
+/usr/bin/grep -F -q 'ai-themestore-home-top-fade' \
+  "$ROOT/engine/assets/renderer-inject.js" || {
+  printf 'Renderer must identify the Codex 26.810 Home top fade.\n' >&2
+  exit 1
+}
+/usr/bin/grep -F -q 'result.homeTopFadeCoverage.pass' \
+  "$ROOT/engine/scripts/injector.mjs" || {
+  printf 'Live verification must reject the native dark Home top fade.\n' >&2
+  exit 1
+}
+/usr/bin/grep -F -q 'ai-themestore-project-utility' \
+  "$ROOT/engine/assets/renderer-inject.js" || {
+  printf 'Renderer must mark the modern project utility surface.\n' >&2
+  exit 1
+}
+/usr/bin/grep -F -q 'projectUtility.surface.pass' \
+  "$ROOT/engine/scripts/injector.mjs" || {
+  printf 'Live verification must enforce project utility surface parity.\n' >&2
+  exit 1
+}
+/usr/bin/grep -F -q 'SHELL_MAIN_COVERAGE_EXPRESSION' \
+  "$ROOT/engine/scripts/injector.mjs" || {
+  printf 'Live verification must enforce transparent Home and task main surfaces.\n' >&2
+  exit 1
+}
 /usr/bin/grep -F -q 'result.hero.y - result.homeBox.y <= 2' \
   "$ROOT/engine/scripts/injector.mjs" || {
   printf 'Live verification must reject the modern Home top spacer regression.\n' >&2
